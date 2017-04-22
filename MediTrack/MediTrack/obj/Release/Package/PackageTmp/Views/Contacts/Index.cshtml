@@ -1,0 +1,69 @@
+﻿@model IEnumerable<MediTrack.Entity.Contact>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ContactName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PersonalEMail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PersonalPhone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PersonalMobile)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BusinessPhone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BusinessMobile)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ContactName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PersonalEMail)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PersonalPhone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PersonalMobile)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BusinessPhone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BusinessMobile)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Address)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

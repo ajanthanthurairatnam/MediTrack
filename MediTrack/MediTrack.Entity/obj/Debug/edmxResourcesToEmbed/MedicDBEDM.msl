@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MedicDBModelStoreContainer" CdmEntityContainer="MedicDBEntities">
+    <EntitySetMapping Name="Circles">
+      <EntityTypeMapping TypeName="MedicDBModel.Circle">
+        <MappingFragment StoreEntitySet="Circle">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="CircleName" ColumnName="CircleName" />
+          <ScalarProperty Name="CircleDescription" ColumnName="CircleDescription" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Contacts">
+      <EntityTypeMapping TypeName="MedicDBModel.Contact">
+        <MappingFragment StoreEntitySet="Contact">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+          <ScalarProperty Name="PersonalEMail" ColumnName="PersonalEMail" />
+          <ScalarProperty Name="PersonalPhone" ColumnName="PersonalPhone" />
+          <ScalarProperty Name="PersonalMobile" ColumnName="PersonalMobile" />
+          <ScalarProperty Name="BusinessPhone" ColumnName="BusinessPhone" />
+          <ScalarProperty Name="BusinessMobile" ColumnName="BusinessMobile" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="People">
+      <EntityTypeMapping TypeName="MedicDBModel.Person">
+        <MappingFragment StoreEntitySet="Person">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="ContactID" ColumnName="ContactID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PersonCircles">
+      <EntityTypeMapping TypeName="MedicDBModel.PersonCircle">
+        <MappingFragment StoreEntitySet="PersonCircle">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+          <ScalarProperty Name="CircleID" ColumnName="CircleID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmergencyContacts">
+      <EntityTypeMapping TypeName="MedicDBModel.EmergencyContact">
+        <MappingFragment StoreEntitySet="EmergencyContact">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+          <ScalarProperty Name="ContactID" ColumnName="ContactID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

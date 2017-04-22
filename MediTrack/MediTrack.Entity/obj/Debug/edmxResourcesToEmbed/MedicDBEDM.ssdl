@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MedicDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Circle">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CircleName" Type="varchar" MaxLength="50" />
+    <Property Name="CircleDescription" Type="varchar" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="Contact">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ContactName" Type="varchar" MaxLength="50" />
+    <Property Name="PersonalEMail" Type="varchar" MaxLength="100" />
+    <Property Name="PersonalPhone" Type="varchar" MaxLength="50" />
+    <Property Name="PersonalMobile" Type="varchar" MaxLength="50" />
+    <Property Name="BusinessPhone" Type="varchar" MaxLength="50" />
+    <Property Name="BusinessMobile" Type="varchar" MaxLength="50" />
+    <Property Name="Address" Type="varchar" MaxLength="500" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'MedicDB.dbo.EmergencyContact' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="EmergencyContact">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PersonID" Type="int" />
+    <Property Name="ContactID" Type="int" />
+  </EntityType>
+  <EntityType Name="Person">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FirstName" Type="varchar" MaxLength="50" />
+    <Property Name="LastName" Type="varchar" MaxLength="50" />
+    <Property Name="DateOfBirth" Type="date" />
+    <Property Name="Gender" Type="varchar" MaxLength="1" />
+    <Property Name="ContactID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PersonCircle">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PersonID" Type="int" />
+    <Property Name="CircleID" Type="int" />
+  </EntityType>
+  <Association Name="FK_EmergencyContact_Contact">
+    <End Role="Contact" Type="Self.Contact" Multiplicity="0..1" />
+    <End Role="EmergencyContact" Type="Self.EmergencyContact" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Contact">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="EmergencyContact">
+        <PropertyRef Name="ContactID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmergencyContact_Person">
+    <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+    <End Role="EmergencyContact" Type="Self.EmergencyContact" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="EmergencyContact">
+        <PropertyRef Name="PersonID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Person_Contact">
+    <End Role="Contact" Type="Self.Contact" Multiplicity="1" />
+    <End Role="Person" Type="Self.Person" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Contact">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Person">
+        <PropertyRef Name="ContactID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PersonCircle_Circle">
+    <End Role="Circle" Type="Self.Circle" Multiplicity="0..1" />
+    <End Role="PersonCircle" Type="Self.PersonCircle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Circle">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="PersonCircle">
+        <PropertyRef Name="CircleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PersonCircle_Person">
+    <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+    <End Role="PersonCircle" Type="Self.PersonCircle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="PersonCircle">
+        <PropertyRef Name="PersonID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MedicDBModelStoreContainer">
+    <EntitySet Name="Circle" EntityType="Self.Circle" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Contact" EntityType="Self.Contact" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PersonCircle" EntityType="Self.PersonCircle" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EmergencyContact" EntityType="Self.EmergencyContact" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [EmergencyContact].[ID] AS [ID], 
+    [EmergencyContact].[PersonID] AS [PersonID], 
+    [EmergencyContact].[ContactID] AS [ContactID]
+    FROM [dbo].[EmergencyContact] AS [EmergencyContact]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_EmergencyContact_Contact" Association="Self.FK_EmergencyContact_Contact">
+      <End Role="Contact" EntitySet="Contact" />
+      <End Role="EmergencyContact" EntitySet="EmergencyContact" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmergencyContact_Person" Association="Self.FK_EmergencyContact_Person">
+      <End Role="Person" EntitySet="Person" />
+      <End Role="EmergencyContact" EntitySet="EmergencyContact" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Person_Contact" Association="Self.FK_Person_Contact">
+      <End Role="Contact" EntitySet="Contact" />
+      <End Role="Person" EntitySet="Person" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PersonCircle_Circle" Association="Self.FK_PersonCircle_Circle">
+      <End Role="Circle" EntitySet="Circle" />
+      <End Role="PersonCircle" EntitySet="PersonCircle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PersonCircle_Person" Association="Self.FK_PersonCircle_Person">
+      <End Role="Person" EntitySet="Person" />
+      <End Role="PersonCircle" EntitySet="PersonCircle" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

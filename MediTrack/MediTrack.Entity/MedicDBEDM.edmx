@@ -1,0 +1,383 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MedicDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Circle">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CircleName" Type="varchar" MaxLength="50" />
+          <Property Name="CircleDescription" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="Contact">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ContactName" Type="varchar" MaxLength="50" />
+          <Property Name="PersonalEMail" Type="varchar" MaxLength="100" />
+          <Property Name="PersonalPhone" Type="varchar" MaxLength="50" />
+          <Property Name="PersonalMobile" Type="varchar" MaxLength="50" />
+          <Property Name="BusinessPhone" Type="varchar" MaxLength="50" />
+          <Property Name="BusinessMobile" Type="varchar" MaxLength="50" />
+          <Property Name="Address" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'MedicDB.dbo.EmergencyContact' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="EmergencyContact">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PersonID" Type="int" />
+          <Property Name="ContactID" Type="int" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" />
+          <Property Name="DateOfBirth" Type="date" />
+          <Property Name="Gender" Type="varchar" MaxLength="1" />
+          <Property Name="ContactID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PersonCircle">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PersonID" Type="int" />
+          <Property Name="CircleID" Type="int" />
+        </EntityType>
+        <Association Name="FK_EmergencyContact_Contact">
+          <End Role="Contact" Type="Self.Contact" Multiplicity="0..1" />
+          <End Role="EmergencyContact" Type="Self.EmergencyContact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contact">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="EmergencyContact">
+              <PropertyRef Name="ContactID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmergencyContact_Person">
+          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+          <End Role="EmergencyContact" Type="Self.EmergencyContact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="EmergencyContact">
+              <PropertyRef Name="PersonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Person_Contact">
+          <End Role="Contact" Type="Self.Contact" Multiplicity="1" />
+          <End Role="Person" Type="Self.Person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contact">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Person">
+              <PropertyRef Name="ContactID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersonCircle_Circle">
+          <End Role="Circle" Type="Self.Circle" Multiplicity="0..1" />
+          <End Role="PersonCircle" Type="Self.PersonCircle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Circle">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PersonCircle">
+              <PropertyRef Name="CircleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersonCircle_Person">
+          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+          <End Role="PersonCircle" Type="Self.PersonCircle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PersonCircle">
+              <PropertyRef Name="PersonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MedicDBModelStoreContainer">
+          <EntitySet Name="Circle" EntityType="Self.Circle" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Contact" EntityType="Self.Contact" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PersonCircle" EntityType="Self.PersonCircle" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmergencyContact" EntityType="Self.EmergencyContact" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [EmergencyContact].[ID] AS [ID], 
+    [EmergencyContact].[PersonID] AS [PersonID], 
+    [EmergencyContact].[ContactID] AS [ContactID]
+    FROM [dbo].[EmergencyContact] AS [EmergencyContact]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_EmergencyContact_Contact" Association="Self.FK_EmergencyContact_Contact">
+            <End Role="Contact" EntitySet="Contact" />
+            <End Role="EmergencyContact" EntitySet="EmergencyContact" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmergencyContact_Person" Association="Self.FK_EmergencyContact_Person">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="EmergencyContact" EntitySet="EmergencyContact" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Person_Contact" Association="Self.FK_Person_Contact">
+            <End Role="Contact" EntitySet="Contact" />
+            <End Role="Person" EntitySet="Person" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersonCircle_Circle" Association="Self.FK_PersonCircle_Circle">
+            <End Role="Circle" EntitySet="Circle" />
+            <End Role="PersonCircle" EntitySet="PersonCircle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersonCircle_Person" Association="Self.FK_PersonCircle_Person">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="PersonCircle" EntitySet="PersonCircle" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MedicDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Circle">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CircleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CircleDescription" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="PersonCircles" Relationship="Self.FK_PersonCircle_Circle" FromRole="Circle" ToRole="PersonCircle" />
+        </EntityType>
+        <EntityType Name="Contact">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ContactName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PersonalEMail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PersonalPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PersonalMobile" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BusinessPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BusinessMobile" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="EmergencyContacts" Relationship="Self.FK_EmergencyContact_Contact" FromRole="Contact" ToRole="EmergencyContact" />
+          <NavigationProperty Name="People" Relationship="Self.FK_Person_Contact" FromRole="Contact" ToRole="Person" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateOfBirth" Type="DateTime" Precision="0" />
+          <Property Name="Gender" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="ContactID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Contact" Relationship="Self.FK_Person_Contact" FromRole="Person" ToRole="Contact" />
+          <NavigationProperty Name="EmergencyContacts" Relationship="Self.FK_EmergencyContact_Person" FromRole="Person" ToRole="EmergencyContact" />
+          <NavigationProperty Name="PersonCircles" Relationship="Self.FK_PersonCircle_Person" FromRole="Person" ToRole="PersonCircle" />
+        </EntityType>
+        <EntityType Name="PersonCircle">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PersonID" Type="Int32" />
+          <Property Name="CircleID" Type="Int32" />
+          <NavigationProperty Name="Circle" Relationship="Self.FK_PersonCircle_Circle" FromRole="PersonCircle" ToRole="Circle" />
+          <NavigationProperty Name="Person" Relationship="Self.FK_PersonCircle_Person" FromRole="PersonCircle" ToRole="Person" />
+        </EntityType>
+        <EntityType Name="EmergencyContact">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PersonID" Type="Int32" />
+          <Property Name="ContactID" Type="Int32" />
+          <NavigationProperty Name="Contact" Relationship="Self.FK_EmergencyContact_Contact" FromRole="EmergencyContact" ToRole="Contact" />
+          <NavigationProperty Name="Person" Relationship="Self.FK_EmergencyContact_Person" FromRole="EmergencyContact" ToRole="Person" />
+        </EntityType>
+        <Association Name="FK_PersonCircle_Circle">
+          <End Role="Circle" Type="Self.Circle" Multiplicity="0..1" />
+          <End Role="PersonCircle" Type="Self.PersonCircle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Circle">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PersonCircle">
+              <PropertyRef Name="CircleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmergencyContact_Contact">
+          <End Role="Contact" Type="Self.Contact" Multiplicity="0..1" />
+          <End Role="EmergencyContact" Type="Self.EmergencyContact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contact">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="EmergencyContact">
+              <PropertyRef Name="ContactID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Person_Contact">
+          <End Role="Contact" Type="Self.Contact" Multiplicity="1" />
+          <End Role="Person" Type="Self.Person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contact">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Person">
+              <PropertyRef Name="ContactID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmergencyContact_Person">
+          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+          <End Role="EmergencyContact" Type="Self.EmergencyContact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="EmergencyContact">
+              <PropertyRef Name="PersonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersonCircle_Person">
+          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+          <End Role="PersonCircle" Type="Self.PersonCircle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PersonCircle">
+              <PropertyRef Name="PersonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MedicDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Circles" EntityType="Self.Circle" />
+          <EntitySet Name="Contacts" EntityType="Self.Contact" />
+          <EntitySet Name="People" EntityType="Self.Person" />
+          <EntitySet Name="PersonCircles" EntityType="Self.PersonCircle" />
+          <EntitySet Name="EmergencyContacts" EntityType="Self.EmergencyContact" />
+          <AssociationSet Name="FK_PersonCircle_Circle" Association="Self.FK_PersonCircle_Circle">
+            <End Role="Circle" EntitySet="Circles" />
+            <End Role="PersonCircle" EntitySet="PersonCircles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmergencyContact_Contact" Association="Self.FK_EmergencyContact_Contact">
+            <End Role="Contact" EntitySet="Contacts" />
+            <End Role="EmergencyContact" EntitySet="EmergencyContacts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Person_Contact" Association="Self.FK_Person_Contact">
+            <End Role="Contact" EntitySet="Contacts" />
+            <End Role="Person" EntitySet="People" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmergencyContact_Person" Association="Self.FK_EmergencyContact_Person">
+            <End Role="Person" EntitySet="People" />
+            <End Role="EmergencyContact" EntitySet="EmergencyContacts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersonCircle_Person" Association="Self.FK_PersonCircle_Person">
+            <End Role="Person" EntitySet="People" />
+            <End Role="PersonCircle" EntitySet="PersonCircles" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MedicDBModelStoreContainer" CdmEntityContainer="MedicDBEntities">
+          <EntitySetMapping Name="Circles">
+            <EntityTypeMapping TypeName="MedicDBModel.Circle">
+              <MappingFragment StoreEntitySet="Circle">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CircleName" ColumnName="CircleName" />
+                <ScalarProperty Name="CircleDescription" ColumnName="CircleDescription" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Contacts">
+            <EntityTypeMapping TypeName="MedicDBModel.Contact">
+              <MappingFragment StoreEntitySet="Contact">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+                <ScalarProperty Name="PersonalEMail" ColumnName="PersonalEMail" />
+                <ScalarProperty Name="PersonalPhone" ColumnName="PersonalPhone" />
+                <ScalarProperty Name="PersonalMobile" ColumnName="PersonalMobile" />
+                <ScalarProperty Name="BusinessPhone" ColumnName="BusinessPhone" />
+                <ScalarProperty Name="BusinessMobile" ColumnName="BusinessMobile" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="People">
+            <EntityTypeMapping TypeName="MedicDBModel.Person">
+              <MappingFragment StoreEntitySet="Person">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="ContactID" ColumnName="ContactID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PersonCircles">
+            <EntityTypeMapping TypeName="MedicDBModel.PersonCircle">
+              <MappingFragment StoreEntitySet="PersonCircle">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+                <ScalarProperty Name="CircleID" ColumnName="CircleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmergencyContacts">
+            <EntityTypeMapping TypeName="MedicDBModel.EmergencyContact">
+              <MappingFragment StoreEntitySet="EmergencyContact">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+                <ScalarProperty Name="ContactID" ColumnName="ContactID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

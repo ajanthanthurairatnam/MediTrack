@@ -1,0 +1,80 @@
+﻿@model MediTrack.Entity.Contact
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Contact</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ContactName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContactName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PersonalEMail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PersonalEMail)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PersonalPhone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PersonalPhone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PersonalMobile)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PersonalMobile)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BusinessPhone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BusinessPhone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BusinessMobile)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BusinessMobile)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

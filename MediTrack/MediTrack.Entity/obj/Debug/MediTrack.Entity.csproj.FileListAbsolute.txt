@@ -1,0 +1,8 @@
+C:\Users\ajanthan\Documents\GitHub\MediTrack\MediTrack\MediTrack.Entity\bin\Debug\MediTrack.Entity.dll
+C:\Users\ajanthan\Documents\GitHub\MediTrack\MediTrack\MediTrack.Entity\bin\Debug\MediTrack.Entity.pdb
+C:\Users\ajanthan\Documents\GitHub\MediTrack\MediTrack\MediTrack.Entity\bin\Debug\EntityFramework.dll
+C:\Users\ajanthan\Documents\GitHub\MediTrack\MediTrack\MediTrack.Entity\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\ajanthan\Documents\GitHub\MediTrack\MediTrack\MediTrack.Entity\bin\Debug\EntityFramework.xml
+C:\Users\ajanthan\Documents\GitHub\MediTrack\MediTrack\MediTrack.Entity\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\ajanthan\Documents\GitHub\MediTrack\MediTrack\MediTrack.Entity\obj\Debug\MediTrack.Entity.dll
+C:\Users\ajanthan\Documents\GitHub\MediTrack\MediTrack\MediTrack.Entity\obj\Debug\MediTrack.Entity.pdb

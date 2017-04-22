@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediTrack", "MediTrack\MediTrack.csproj", "{483E76E4-639A-4E95-919D-AACA4C4F99E1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediTrack.Tests", "MediTrack.Tests\MediTrack.Tests.csproj", "{5F849F27-2343-466C-9A8E-DF13ADAABED7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediTrack.Entity", "MediTrack.Entity\MediTrack.Entity.csproj", "{221279C1-34C8-40A8-95A5-300ACAA67C62}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{483E76E4-639A-4E95-919D-AACA4C4F99E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{483E76E4-639A-4E95-919D-AACA4C4F99E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{483E76E4-639A-4E95-919D-AACA4C4F99E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{483E76E4-639A-4E95-919D-AACA4C4F99E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F849F27-2343-466C-9A8E-DF13ADAABED7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F849F27-2343-466C-9A8E-DF13ADAABED7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F849F27-2343-466C-9A8E-DF13ADAABED7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F849F27-2343-466C-9A8E-DF13ADAABED7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{221279C1-34C8-40A8-95A5-300ACAA67C62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{221279C1-34C8-40A8-95A5-300ACAA67C62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{221279C1-34C8-40A8-95A5-300ACAA67C62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{221279C1-34C8-40A8-95A5-300ACAA67C62}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
