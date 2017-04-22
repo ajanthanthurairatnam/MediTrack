@@ -6,3 +6,4 @@ C:\Users\ajanthan\Documents\GitHub\MediTrack\MediTrack\MediTrack.Entity\bin\Debu
 C:\Users\ajanthan\Documents\GitHub\MediTrack\MediTrack\MediTrack.Entity\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\ajanthan\Documents\GitHub\MediTrack\MediTrack\MediTrack.Entity\obj\Debug\MediTrack.Entity.dll
 C:\Users\ajanthan\Documents\GitHub\MediTrack\MediTrack\MediTrack.Entity\obj\Debug\MediTrack.Entity.pdb
+C:\Users\ajanthan\Documents\GitHub\MediTrack\MediTrack\MediTrack.Entity\obj\Debug\MediTrack.Entity.csprojResolveAssemblyReference.cache
